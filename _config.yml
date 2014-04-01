@@ -1,9 +1,0 @@
-name: Ross' ramblings.
-url: http://rossjones.github.io
-description: Random Ramblings from Ross.
-
-permalink: /:year/:month/:day/:title/
-paginate: 10
-pygments: true
-
-exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
