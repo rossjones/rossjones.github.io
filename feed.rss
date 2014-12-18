@@ -1,0 +1,29 @@
+---
+layout: none
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+
+<channel>
+
+<title>Ross' Rambling</title>
+<link>http://rossjones.github.io</link>
+
+<language>en-gb</language>
+
+<description>Ross Jones' blog<description>
+{% for post in site.posts %}{% if post.layout != 'tags' %}
+<item>
+  <title>{{ post.title }}</title>
+  <link>http://rossjones.github.io{{ post.url }}</link>
+  <author>Ross Jones</author>
+  <description><![CDATA[
+{{ post.content | markdownify |truncatehtml | truncatewords: 60 }}
+    ]]></description>
+  <guid>http://rossjones.github.io{{ post.url }}</guid>
+  <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+</item>
+{% endif %}{% endfor %}
+</channel>
+</rss>
