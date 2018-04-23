@@ -26,7 +26,7 @@ github_username: rossjones
 
 # Theming options
 # These settings are mandatory.
-theme:              'blue-pink'
+theme:              jekyll-theme-tactile
 # drawer theming
 drawer:
   text_color:       'grey-600'
