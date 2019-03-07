@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ross&#39; blog</title>
+    <link>https://rossjones.github.io/</link>
+    <description>Recent content on Ross&#39; blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 18 Dec 2014 21:27:17 +0000</lastBuildDate>
+    
+	<atom:link href="https://rossjones.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CKAN plugins - IRoutes</title>
+      <link>https://rossjones.github.io/posts/ckan-plugins---iroutes/</link>
+      <pubDate>Thu, 18 Dec 2014 21:27:17 +0000</pubDate>
+      
+      <guid>https://rossjones.github.io/posts/ckan-plugins---iroutes/</guid>
+      <description>Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&amp;rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
+IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://rossjones.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://rossjones.github.io/about/</guid>
+      <description> About me </description>
+    </item>
+    
+  </channel>
+</rss>

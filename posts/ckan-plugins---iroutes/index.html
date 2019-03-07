@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="CKAN plugins - IRoutes">
+<meta itemprop="description" content="Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
+IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance.">
+
+
+<meta itemprop="datePublished" content="2014-12-18T21:27:17&#43;00:00" />
+<meta itemprop="dateModified" content="2014-12-18T21:27:17&#43;00:00" />
+<meta itemprop="wordCount" content="481">
+
+
+
+<meta itemprop="keywords" content="ckan," />
+<meta property="og:title" content="CKAN plugins - IRoutes" />
+<meta property="og:description" content="Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
+IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rossjones.github.io/posts/ckan-plugins---iroutes/" /><meta property="article:published_time" content="2014-12-18T21:27:17&#43;00:00"/>
+<meta property="article:modified_time" content="2014-12-18T21:27:17&#43;00:00"/><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CKAN plugins - IRoutes"/>
+<meta name="twitter:description" content="Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
+IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>CKAN plugins - IRoutes</title>
+	<link rel="stylesheet" href="https://rossjones.github.io/css/style.min.620b93c7f2fa52f7d979e029e5a639b0d73d4eda8d533fe014530765a33ae66c.css" integrity="sha256-YguTx/L6UvfZeeAp5aY5sNc9TtqNUz/gFFMHZaM65mw=">
+	
+	<link rel="stylesheet" href="https://rossjones.github.io/css/tweaks.css">
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://rossjones.github.io">Ross&#39; blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					<a href="https://rossjones.github.io/posts/">Posts</a>
+					<a href="https://rossjones.github.io/about/">About</a>
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/rossjones" target="_blank" rel="noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://github.com/rossjones" target="_blank" rel="noopener" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://rossjones.github.io/posts/">Posts</a></li>
+			<li><a href="https://rossjones.github.io/about/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Dec 18, 2014</span></div>
+				<h1>CKAN plugins - IRoutes</h1>
+			</header>
+			<div class="content">
+				
+
+<p>Although the CKAN <a href="http://docs.ckan.org/en/latest/extensions/index.html">extension documentation</a>
+is fairly complete I thought it might be useful to document some examples for each of the
+<a href="http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html">plugin interfaces</a> that are
+available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples,
+they <a href="https://github.com/ckan/ckan/tree/master/ckanext">already exist</a>, but rather just more basic
+guidance on what you can do with each plugin and how.</p>
+
+<h4 id="iroutes">IRoutes<a href="#iroutes" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>The IRoutes plugin is used to add new URLs to your CKAN instance.  Typically you&rsquo;ll use
+it when you have created a new Controller, and you want to set up certain URLs to call
+the actions on that Controller, but it can also be used to add fall-back URLs.</p>
+
+<p>To implement IRoutes, your code will probably look <em>something</em> like this:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">ckan.plugins</span> <span class="kn">as</span> <span class="nn">p</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">SingletonPlugin</span><span class="p">):</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">implements</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">IRoutes</span><span class="p">,</span> <span class="n">inherit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">before_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
+        <span class="n">controller</span> <span class="o">=</span> <span class="s1">&#39;ckanext.myplugin.controllers:MyController&#39;</span>
+        <span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;/something&#39;</span><span class="p">,</span>
+            <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+        <span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something_view&#39;</span><span class="p">,</span> <span class="s1">&#39;/something/{name}&#39;</span><span class="p">,</span>
+            <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">map</span>
+
+    <span class="k">def</span> <span class="nf">after_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">map</span></code></pre></div>
+
+<p>As the <a href="http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html?highlight=implements#ckan.plugins.implements">documentation</a>
+explains, <code>p.implements(p.IRoutes, inherit=True)</code> is how you tell CKAN that your
+plugin provides that functionality, in this case adding to the routing table. The part
+of that call <code>inherit=True</code> simply means that if you do not implement one of the
+methods of the interface then a default implementation will be provided for you.  So,
+in our code above we could just remove <code>after_map(self, map)</code> if we&rsquo;re not going
+to implement it, and it&rsquo;ll all still work.  It&rsquo;s probably easier to just always have
+<code>inherit=True</code>.</p>
+
+<h4 id="using-the-map">Using the map<a href="#using-the-map" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>In our before_map call above, we have a line that looks like
+<code>controller = 'ckanext.myplugin.controllers:MyController'</code>, this is using a
+<a href="https://docs.python.org/2/tutorial/modules.html#packages">dotted-module-name</a>
+to find the module (ckanext.myplugin.controllers in ckanext/myplugin/controller.py)
+ and then the class to load is the name following <code>:</code>.  You had to use this
+ format when <a href="http://docs.ckan.org/en/latest/extensions/tutorial.html#adding-the-plugin-to-setup-py">modifying your setup.py to point to your plugin</a>.</p>
+
+<p>The following two lines are used to specify the new URLs we want to add, and which
+action to call for each.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;/something&#39;</span><span class="p">,</span> <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span></code></pre></div>
+
+<p>This line gives the URL a name (&lsquo;something&rsquo;), so that it can be looked up by name,
+using <code>toolkit.url_for('something')</code>.</p>
+
+<p>The next parameter (&lsquo;/something&rsquo;) is the URL to be mapped. This example is pretty
+straightforward, but you might want to support <code>/something/here</code> and
+<code>/something/else</code>, in which case you specify the URL as <code>/something/{name}</code>.
+The action parameter specifies the name of the method in your controller class. You
+should remember though, that if you use a named parameter in the <code>map.connect()</code>
+call that you need to add that parameter to the method signature.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># /something</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="c1"># /something/{name}</span>
+<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">pass</span></code></pre></div>
+
+<h4 id="more-information">More information<a href="#more-information" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>Under the hood, CKAN uses the <a href="http://routes.readthedocs.org/en/latest/">routes library</a> v1.13
+to handle the route generation, so that should be the next port of call if you need more
+information on defining more complex routes. In particular:</p>
+
+<ul>
+<li><a href="http://routes.readthedocs.org/en/latest/setting_up.html">Setting up routes</a></li>
+<li><a href="http://routes.readthedocs.org/en/latest/setting_up.html#submappers">Using submappers</a> for when
+you want lots of actions on a single controller all under a single root URL.</li>
+</ul>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://rossjones.github.io/tags/ckan">ckan</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>481 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2014-12-18 21:27 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://rossjones.github.io">Ross Jones</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://rossjones.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://rossjones.github.io/js/main.min.8f39f24808e9d0a9b02da58c2d2838da859dc0b7bdfadbdb1883aae8b6adacfe.js" integrity="sha256-jznySAjp0KmwLaWMLSg42oWdwLe9+tvbGIOq6LatrP4="></script>
+
+</body>
+
+</html>
