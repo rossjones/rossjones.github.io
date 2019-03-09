@@ -14,10 +14,10 @@
     
     <item>
       <title>CKAN plugins - IRoutes</title>
-      <link>https://rossjones.github.io/posts/ckan-plugins---iroutes/</link>
+      <link>https://rossjones.github.io/posts/ckan-plugins-iroutes/</link>
       <pubDate>Thu, 18 Dec 2014 21:27:17 +0000</pubDate>
       
-      <guid>https://rossjones.github.io/posts/ckan-plugins---iroutes/</guid>
+      <guid>https://rossjones.github.io/posts/ckan-plugins-iroutes/</guid>
       <description>Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&amp;rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
 IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance.</description>
     </item>

@@ -1,111 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Posts on Ross&#39; blog</title>
-		<link>https://rossjones.github.io/posts/</link>
-		<description>Recent content in Posts on Ross&#39; blog</description>
-		<generator>Hugo -- gohugo.io</generator>
-		<language>en-us</language>
-		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Thu, 18 Dec 2014 21:27:17 +0000</lastBuildDate>
-		<atom:link href="https://rossjones.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-		
-		<item>
-			<title>CKAN plugins - IRoutes</title>
-			<link>https://rossjones.github.io/posts/ckan-plugins---iroutes/</link>
-			<pubDate>Thu, 18 Dec 2014 21:27:17 +0000</pubDate>
-			
-			<guid>https://rossjones.github.io/posts/ckan-plugins---iroutes/</guid>
-			<description>Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&amp;rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
+  <channel>
+    <title>Posts on Ross&#39; blog</title>
+    <link>https://rossjones.github.io/posts/</link>
+    <description>Recent content in Posts on Ross&#39; blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 18 Dec 2014 21:27:17 +0000</lastBuildDate>
+    
+	<atom:link href="https://rossjones.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CKAN plugins - IRoutes</title>
+      <link>https://rossjones.github.io/posts/ckan-plugins-iroutes/</link>
+      <pubDate>Thu, 18 Dec 2014 21:27:17 +0000</pubDate>
+      
+      <guid>https://rossjones.github.io/posts/ckan-plugins-iroutes/</guid>
+      <description>Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&amp;rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how.
 IRoutes The IRoutes plugin is used to add new URLs to your CKAN instance.</description>
-			<content type="html"><![CDATA[
-
-<p>Although the CKAN <a href="http://docs.ckan.org/en/latest/extensions/index.html">extension documentation</a>
-is fairly complete I thought it might be useful to document some examples for each of the
-<a href="http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html">plugin interfaces</a> that are
-available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples,
-they <a href="https://github.com/ckan/ckan/tree/master/ckanext">already exist</a>, but rather just more basic
-guidance on what you can do with each plugin and how.</p>
-
-<h4 id="iroutes">IRoutes</h4>
-
-<p>The IRoutes plugin is used to add new URLs to your CKAN instance.  Typically you&rsquo;ll use
-it when you have created a new Controller, and you want to set up certain URLs to call
-the actions on that Controller, but it can also be used to add fall-back URLs.</p>
-
-<p>To implement IRoutes, your code will probably look <em>something</em> like this:</p>
-
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">ckan.plugins</span> <span class="kn">as</span> <span class="nn">p</span>
-
-<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">SingletonPlugin</span><span class="p">):</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">implements</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">IRoutes</span><span class="p">,</span> <span class="n">inherit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">before_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
-        <span class="n">controller</span> <span class="o">=</span> <span class="s1">&#39;ckanext.myplugin.controllers:MyController&#39;</span>
-        <span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;/something&#39;</span><span class="p">,</span>
-            <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-        <span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something_view&#39;</span><span class="p">,</span> <span class="s1">&#39;/something/{name}&#39;</span><span class="p">,</span>
-            <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">map</span>
-
-    <span class="k">def</span> <span class="nf">after_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">map</span></code></pre></div>
-
-<p>As the <a href="http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html?highlight=implements#ckan.plugins.implements">documentation</a>
-explains, <code>p.implements(p.IRoutes, inherit=True)</code> is how you tell CKAN that your
-plugin provides that functionality, in this case adding to the routing table. The part
-of that call <code>inherit=True</code> simply means that if you do not implement one of the
-methods of the interface then a default implementation will be provided for you.  So,
-in our code above we could just remove <code>after_map(self, map)</code> if we&rsquo;re not going
-to implement it, and it&rsquo;ll all still work.  It&rsquo;s probably easier to just always have
-<code>inherit=True</code>.</p>
-
-<h4 id="using-the-map">Using the map</h4>
-
-<p>In our before_map call above, we have a line that looks like
-<code>controller = 'ckanext.myplugin.controllers:MyController'</code>, this is using a
-<a href="https://docs.python.org/2/tutorial/modules.html#packages">dotted-module-name</a>
-to find the module (ckanext.myplugin.controllers in ckanext/myplugin/controller.py)
- and then the class to load is the name following <code>:</code>.  You had to use this
- format when <a href="http://docs.ckan.org/en/latest/extensions/tutorial.html#adding-the-plugin-to-setup-py">modifying your setup.py to point to your plugin</a>.</p>
-
-<p>The following two lines are used to specify the new URLs we want to add, and which
-action to call for each.</p>
-
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">map</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;/something&#39;</span><span class="p">,</span> <span class="n">controller</span><span class="o">=</span><span class="n">controller</span><span class="p">,</span>
-    <span class="n">action</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span></code></pre></div>
-
-<p>This line gives the URL a name (&lsquo;something&rsquo;), so that it can be looked up by name,
-using <code>toolkit.url_for('something')</code>.</p>
-
-<p>The next parameter (&lsquo;/something&rsquo;) is the URL to be mapped. This example is pretty
-straightforward, but you might want to support <code>/something/here</code> and
-<code>/something/else</code>, in which case you specify the URL as <code>/something/{name}</code>.
-The action parameter specifies the name of the method in your controller class. You
-should remember though, that if you use a named parameter in the <code>map.connect()</code>
-call that you need to add that parameter to the method signature.</p>
-
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># /something</span>
-<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-<span class="c1"># /something/{name}</span>
-<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-    <span class="k">pass</span></code></pre></div>
-
-<h4 id="more-information">More information</h4>
-
-<p>Under the hood, CKAN uses the <a href="http://routes.readthedocs.org/en/latest/">routes library</a> v1.13
-to handle the route generation, so that should be the next port of call if you need more
-information on defining more complex routes. In particular:</p>
-
-<ul>
-<li><a href="http://routes.readthedocs.org/en/latest/setting_up.html">Setting up routes</a></li>
-<li><a href="http://routes.readthedocs.org/en/latest/setting_up.html#submappers">Using submappers</a> for when
-you want lots of actions on a single controller all under a single root URL.</li>
-</ul>
-]]></content>
-		</item>
-		
-	</channel>
+    </item>
+    
+  </channel>
 </rss>
