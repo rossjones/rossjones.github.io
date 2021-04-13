@@ -1,0 +1,58 @@
+<!doctype html><html lang=en data-theme=dark><head><title>Ross Jones | CKAN plugins - IRoutes</title><meta charset=utf-8><meta name=generator content="Hugo 0.82.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=description content="Infrequent and often random ramblings about whatever"><link rel=stylesheet href=/css/style.min.12394ad1dd77abc5f2b8ac9fff89a6f77f11f1db9126284cdea41236936f5c56.css integrity="sha256-EjlK0d13q8XyuKyf/4mm938R8duRJihM3qQSNpNvXFY=" crossorigin=anonymous type=text/css><link rel=stylesheet href=/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS+yuWSR4=" crossorigin=anonymous type=text/css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin=anonymous><link rel="shortcut icon" href=/favicon.ico type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=canonical href=/posts/ckan-plugins-iroutes/><script type=text/javascript src=/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin=anonymous></script><script type=text/javascript src=/js/anatole-theme-switcher.min.47918423907d577c1f04c2fd28730186eca486fb18e52fc882c3c7ad5f2540b1.js integrity="sha256-R5GEI5B9V3wfBML9KHMBhuykhvsY5S/IgsPHrV8lQLE=" crossorigin=anonymous></script><meta name=twitter:card content="summary"><meta name=twitter:title content="CKAN plugins - IRoutes"><meta name=twitter:description content="This blog post is almost certainly out of date. You should check the CKAN docs - they&rsquo;re pretty awesome.
+ Although the CKAN extension documentation is fairly complete I thought it might be useful to document some examples for each of the plugin interfaces that are available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples, they already exist, but rather just more basic guidance on what you can do with each plugin and how."></head><body><div class="sidebar animated fadeInDown"><div class=logo-title><div class=title><img src=/images/profile.jpg alt="profile picture"><h3 title><a href=/>Ross' Random Ramblings</a></h3><div class=description><p>Infrequent and often random ramblings about whatever</p></div></div></div><ul class=social-links><li><a href=https://github.com/rossjones rel=me aria-label=GitHub><i class="fab fa-github fa-2x" aria-hidden=true></i></a></li><li><a href=https://twitter.com/rossjones rel=me aria-label=Twitter><i class="fab fa-twitter fa-2x" aria-hidden=true></i></a></li><li><a href=https://rossjones.github.io/index.xml rel=me aria-label="RSS Feed"><i class="fas fa-rss fa-2x" aria-hidden=true></i></a></li></ul><div class=footer><div class=by_farbox>&copy; Ross Jones 2021</div></div></div><div class=main><div class="page-top animated fadeInDown"><a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false><span aria-hidden=true></span><span aria-hidden=true></span><span aria-hidden=true></span></a><ul class=nav id=navMenu><li><a href=/ title>Home</a></li><li><a href=/posts/ title>Posts</a></li><li><a href=/about/ title>About</a></li><li class=theme-switch-item><a class=theme-switch title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></li></ul></div><div class=autopagerize_page_element><div class=content><div class="post animated fadeInDown"><div class=post-content><div class=post-title><h3>CKAN plugins - IRoutes</h3></div><blockquote><p>This blog post is almost certainly out of date. You should check the <a href=https://docs.ckan.org/>CKAN docs</a> - they&rsquo;re pretty awesome.</p></blockquote><p>Although the CKAN <a href=http://docs.ckan.org/en/latest/extensions/index.html>extension documentation</a>
+is fairly complete I thought it might be useful to document some examples for each of the
+<a href=http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html>plugin interfaces</a> that are
+available to you as a CKAN extension author. They&rsquo;re not going to be fully complete plugin examples,
+they <a href=https://github.com/ckan/ckan/tree/master/ckanext>already exist</a>, but rather just more basic
+guidance on what you can do with each plugin and how.</p><h3 id=iroutes>IRoutes</h3><p>The IRoutes plugin is used to add new URLs to your CKAN instance. Typically you’ll use
+it when you have created a new Controller, and you want to set up certain URLs to call
+the actions on that Controller, but it can also be used to add fall-back URLs.</p><p>To implement IRoutes, your code will probably look <em>something</em> like this:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> ckan.plugins <span style=color:#f92672>as</span> p
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyPlugin</span>(p<span style=color:#f92672>.</span>SingletonPlugin):
+    p<span style=color:#f92672>.</span>implements(p<span style=color:#f92672>.</span>IRoutes, inherit<span style=color:#f92672>=</span>True)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>before_map</span>(self, map):
+        controller <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ckanext.myplugin.controllers:MyController&#34;</span>
+        map<span style=color:#f92672>.</span>connect(<span style=color:#e6db74>&#34;something&#34;</span>, <span style=color:#e6db74>&#34;/something&#34;</span>,
+            controller<span style=color:#f92672>=</span>controller, action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>)
+        map<span style=color:#f92672>.</span>connect(<span style=color:#e6db74>&#34;something_view&#34;</span>, <span style=color:#e6db74>&#34;/something/{name}&#34;</span>,
+            controller<span style=color:#f92672>=</span>controller, action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;view&#34;</span>)
+        <span style=color:#66d9ef>return</span> map
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>after_map</span>(self, map):
+        <span style=color:#66d9ef>return</span> map
+</code></pre></div><p>As the <a href="http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html?highlight=implements#ckan.plugins.implements">documentation</a>
+explains, <code>p.implements(p.IRoutes, inherit=True)</code> is how you tell CKAN that your
+plugin provides that functionality, in this case adding to the routing table. The part
+of that call <code>inherit=True</code> simply means that if you do not implement one of the
+methods of the interface then a default implementation will be provided for you. So,
+in our code above we could just remove <code>after_map(self, map)</code> if we&rsquo;re not going
+to implement it, and it&rsquo;ll all still work. It&rsquo;s probably easier to just always have
+<code>inherit=True</code>.</p><h3 id=using-the-map>Using the map</h3><p>In our before_map call above, we have a line that looks like
+<code>controller = 'ckanext.myplugin.controllers:MyController'</code>, this is using a
+<a href=https://docs.python.org/2/tutorial/modules.html#packages>dotted-module-name</a>
+to find the module (ckanext.myplugin.controllers in ckanext/myplugin/controller.py)
+and then the class to load is the name following <code>:</code>. You had to use this
+format when <a href=http://docs.ckan.org/en/latest/extensions/tutorial.html#adding-the-plugin-to-setup-py>modifying your setup.py to point to your plugin</a>.</p><p>The following two lines are used to specify the new URLs we want to add, and which
+action to call for each.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>map<span style=color:#f92672>.</span>connect(
+    <span style=color:#e6db74>&#34;something&#34;</span>,
+    <span style=color:#e6db74>&#34;/something&#34;</span>,
+    controller<span style=color:#f92672>=</span>controller,
+    action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>
+)
+</code></pre></div><p>This line gives the URL a name (&ldquo;something&rdquo;), so that it can be looked up by name,
+using <code>toolkit.url_for('something')</code>.</p><p>The next parameter ("/something") is the URL to be mapped. This example is pretty
+straightforward, but you might want to support <code>/something/here</code> and
+<code>/something/else</code>, in which case you specify the URL as <code>/something/{name}</code>.
+The action parameter specifies the name of the method in your controller class. You
+should remember though, that if you use a named parameter in the <code>map.connect()</code>
+call that you need to add that parameter to the method signature.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># /something</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>index</span>(self):
+    <span style=color:#66d9ef>pass</span>
+
+<span style=color:#75715e># /something/{name}</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>view</span>(self, name):
+    <span style=color:#66d9ef>pass</span>
+</code></pre></div><h3 id=more-information>More information</h3><p>Under the hood, CKAN uses the <a href=http://routes.readthedocs.org/en/latest/>routes library</a> v1.13
+to handle the route generation, so that should be the next port of call if you need more
+information on defining more complex routes. In particular:</p><ul><li><a href=http://routes.readthedocs.org/en/latest/setting_up.html>Setting up routes</a></li><li><a href=http://routes.readthedocs.org/en/latest/setting_up.html#submappers>Using submappers</a> for when you want lots of actions on a single controller all under a single root URL.</li></ul></div><div class=post-footer><div class=info></div></div></div></div></div></div><script type=text/javascript src=/js/medium-zoom.min.2d6fd0be87fa98f0c9b4dc2536b312bbca48757f584f6ea1f394abc9bcc38fbc.js integrity="sha256-LW/Qvof6mPDJtNwlNrMSu8pIdX9YT26h85SrybzDj7w=" crossorigin=anonymous></script></body></html>
