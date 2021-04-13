@@ -1,0 +1,55 @@
+baseURL = "https://rossjones.github.io/"
+languageCode = "en-gb"
+title = "Ross' Rambling"
+theme = "anatole"
+
+
+[params]
+title = "Ross' Random Ramblings"
+author = "Ross Jones"
+description = "Infrequent and often random ramblings about whatever"
+profilePicture = "images/profile.jpg"
+mainSections = ["posts"]
+displayMode = "dark"
+readMore = true
+postSectionName = "blog"
+fullPostContent = false
+copyright = "2021"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+[[params.socialIcons]]
+icon = "fab fa-github"
+title = "GitHub"
+url = "https://github.com/rossjones"
+
+[[params.socialIcons]]
+icon = "fab fa-twitter"
+title = "Twitter"
+url = "https://twitter.com/rossjones"
+
+[[params.socialIcons]]
+icon = "fas fa-rss"
+title = "RSS Feed"
+url = "https://rossjones.github.io/index.xml"
+
+[menu]
+
+  [[menu.main]]
+  name = "Home"
+  identifier = "home"
+  weight = 100
+  url = "/"
+
+  [[menu.main]]
+  name = "Posts"
+  weight = 200
+  identifier = "posts"
+  url = "/posts/"
+
+  [[menu.main]]
+  name = "About"
+  weight = 300
+  identifier = "about"
+  url = "/about/"
+
